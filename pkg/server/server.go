@@ -3,10 +3,13 @@ package server
 import (
 	"log"
 	"net/http"
+
+	"github.com/aniruddha2000/kitly/pkg/urlshortner"
 )
 
 type Server struct {
-	Router *http.ServeMux
+	Router  *http.ServeMux
+	Shorter urlshortner.Shorter
 }
 
 func NewServer() *Server {
@@ -15,6 +18,7 @@ func NewServer() *Server {
 
 func (s *Server) Initialize() {
 	s.Router = http.NewServeMux()
+	s.Shorter = urlshortner.NewStore()
 	s.initializeRoutes()
 }
 
