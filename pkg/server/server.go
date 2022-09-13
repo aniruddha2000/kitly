@@ -3,6 +3,7 @@ package server
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/aniruddha2000/kitly/pkg/urlshortner"
 )
@@ -18,7 +19,14 @@ func NewServer() *Server {
 
 func (s *Server) Initialize() {
 	s.Router = http.NewServeMux()
-	s.Shorter = urlshortner.NewStore()
+
+	f, err := os.Open("db.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	s.Shorter = urlshortner.NewFileStore(f)
 	s.initializeRoutes()
 }
 
