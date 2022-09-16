@@ -1,6 +1,8 @@
 package urlshortner
 
-import b64 "encoding/base64"
+import (
+	b64 "encoding/base64"
+)
 
 type Store struct {
 	Data map[string]string
@@ -12,20 +14,16 @@ func NewStore() *Store {
 
 type Shorter interface {
 	Short(string) string
+	Find(string) (string, bool)
 }
 
 func (s *Store) Short(url string) string {
-	val, ok := s.find(url)
-	if ok {
-		return val
-	}
-
 	shortenURL := s.encode(url)
-	s.store(url, shortenURL)
+	s.store(shortenURL, url)
 	return shortenURL
 }
 
-func (s *Store) find(url string) (string, bool) {
+func (s *Store) Find(url string) (string, bool) {
 	if val, ok := s.Data[url]; ok {
 		return val, true
 	}
