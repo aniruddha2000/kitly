@@ -18,7 +18,9 @@ spec:
         app: kitly
     spec:
       containers:
-      - image: aniruddhabasak/kitly:1.1.1
+      - image: aniruddhabasak/kitly:1.1.3
         name: kitly-ctnr
+        ports:
+        - containerPort: 8989
         resources: {}
 status: {}
