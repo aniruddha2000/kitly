@@ -6,8 +6,6 @@ import (
 	j "github.com/aniruddha2000/kitly/pkg/json"
 )
 
-const msg = "http://localhost:8989/"
-
 func (s *Server) initializeRoutes() {
 	s.Router.HandleFunc("/short", s.Short)
 	s.Router.HandleFunc("/", s.Redirect)
@@ -20,7 +18,7 @@ func (s *Server) Short(w http.ResponseWriter, r *http.Request) {
 
 		shortenURL := s.Shorter.Short(url)
 
-		j.JSON(w, r, http.StatusOK, msg+shortenURL)
+		j.JSON(w, r, http.StatusOK, r.Host+"/"+shortenURL)
 	} else {
 		j.JSON(w, r, http.StatusBadRequest, "Request Invalid! POST Request accepted only")
 	}
