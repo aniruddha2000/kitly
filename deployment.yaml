@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kitly
+  name: kitly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kitly
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kitly
+    spec:
+      containers:
+      - image: aniruddhabasak/kitly:1.1.1
+        name: kitly-ctnr
+        resources: {}
+status: {}
