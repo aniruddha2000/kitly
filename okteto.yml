@@ -1,0 +1,18 @@
+name: kitly
+build:
+  kitly:
+    context: .
+    dockerfile: Dockerfile
+deploy:
+  - kubectl apply -f k8s
+dev:
+  kitly:
+    image: aniruddhabasak/kitly:1.1.3
+    command: ./bin/kitly
+    workdir: /usr/src/
+    sync:
+      - .:/usr/src/
+    environment:
+      - name=$USER
+    forward:
+      - 8989:8989
